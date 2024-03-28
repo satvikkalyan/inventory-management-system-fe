@@ -58,68 +58,66 @@ const Register = () => {
   return (
     <div className={classes.main_div}>
       <form onSubmit={handleSubmit} className={classes.form_div}>
-        {/* <div className={classes.textContainer}> */}
-        
         <TextField
-            type="text"
-            required
-            id="firstName"
-            name="firstName"
-            label="First Name"
-            onChange={handleChange}
-            
-          />
-       
-          <TextField
-            type="text"
-            required
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            onChange={handleChange}
-            className={classes.textField}
-          />
-          <TextField
-            type="email"
-            required
-            id="email"
-            name="email"
-            label="Email"
-            onChange={handleChange}
-            className={classes.textField}
-          />
-        
-          <TextField
-            type="password"
-            required
-            id="password"
-            name="password"
-            label="Password"
-            onChange={handleChange}
-            className={classes.textField}
-          />
-       
-          <TextField
-            type="password"
-            required
-            id="confirm_password"
-            name="confirmPassword"
-            label="Confirm Password"
-            onChange={handleChange}
-            className={classes.textField}
-          />
-          {formErrors.passwordMatchError && (
-            <span>{formErrors.passwordMatchError}</span>
-          )}
-        
+          type="text"
+          required
+          id="firstName"
+          name="firstName"
+          label="First Name"
+          onChange={handleChange}
+
+        />
+
+        <TextField
+          type="text"
+          required
+          id="lastName"
+          name="lastName"
+          label="Last Name"
+          onChange={handleChange}
+          className={classes.textField}
+        />
+        <TextField
+          type="email"
+          required
+          id="email"
+          name="email"
+          label="Email"
+          onChange={handleChange}
+          className={classes.textField}
+        />
+
+        <TextField
+          type="password"
+          required
+          id="password"
+          name="password"
+          label="Password"
+          onChange={handleChange}
+          className={classes.textField}
+        />
+
+        <TextField
+          type="password"
+          required
+          id="confirm_password"
+          name="confirmPassword"
+          label="Confirm Password"
+          onChange={handleChange}
+          className={classes.textField}
+        />
+        {formErrors.passwordMatchError && (
+          <span>{formErrors.passwordMatchError}</span>
+        )}
+
         <Button variant="contained" type="submit" disabled={!isFormValid}>
           Submit
         </Button>
         {/* </div> */}
-          
+
       </form>
-      </div>
-    
+    </div>
+
   );
 };
 
