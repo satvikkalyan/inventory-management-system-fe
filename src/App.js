@@ -1,18 +1,22 @@
-import { Route,BrowserRouter as Router,Routes } from 'react-router-dom';
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
-import PasswordRecovery from "./Pages/forgot-password/PasswordRecovery"
-import HomePage from './Pages/HomePage';
-import Register from './Pages/Login_register/Register';
+import Register from './pages/register/Register';
+import Login from './pages/login/Login';
+import HomePage from "./pages/home-page/HomePage"
+import PasswordRecovery from './pages/forgot-password/PasswordRecovery';
+import ResponsiveAppBar from "./components/navbar/ResponsiveAppBar";
 function App() {
   return (
-    <>
     <Router>
+      <ResponsiveAppBar />
       <Routes>
-     <Route path="/" element={<HomePage></HomePage>} ></Route>
-     <Route path="/register" element={<Register></Register>}></Route>
-     </Routes>
-     </Router>
-     </>
+        <Route path="/" element={<HomePage />} ></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/passwordreset" element={<PasswordRecovery />}></Route>
+      </Routes>
+    </Router>
   );
 }
 

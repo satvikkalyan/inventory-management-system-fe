@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./password-recovery.css"
+import classes from "./PasswordRecovery.module.css"
 import { Button, TextField } from '@mui/material'
 import { validateEmail,isValidOTP, validatePasswords } from "././../../utils/inputValidationUtil"
 
@@ -152,8 +152,8 @@ function PasswordRecovery() {
     }
   }
   return (
-    <div className='pr-main-div'>
-      <div className='pr-reset-form'>
+    <div className={classes.main_div}>
+      <div className={classes.reset_form}>
         {displayResetForm ? (
           <PasswordResetComponent 
             error = {errors.passwords}
