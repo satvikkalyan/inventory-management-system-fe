@@ -38,11 +38,30 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
   const handleMenuItemClick = (page) => {
-    console.log(page)
     handleCloseUserMenu()
     switch (page) {
       case 'Home':
         navigate('/')
+        break
+      default:
+        navigate('/')
+
+    }
+  }
+  const handleSettingsClicked = (setting) =>{
+    handleCloseUserMenu()
+    switch (setting) {
+      case 'Profile':
+        navigate('/')
+        break
+      case 'Logout':
+        navigate('/')
+        break
+      case 'Login':
+        navigate('/login')
+        break
+      case 'Register':
+        navigate('/register')
         break
       default:
         navigate('/')
@@ -167,7 +186,7 @@ function ResponsiveAppBar() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={()=>handleSettingsClicked(setting)}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
@@ -196,7 +215,7 @@ function ResponsiveAppBar() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <MenuItem key={setting} onClick={()=>handleSettingsClicked(setting)}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
