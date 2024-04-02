@@ -2,12 +2,17 @@ import { Button, TextField } from "@mui/material";
 import React, { useState } from "react"; // Don't forget to import React
 // Remove import { Form } from "react-router-dom";
 import classes from "./Register.module.css";
-
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 const Register = () => {
   const [formData, setFormData] = useState({
+    user:"",
     firstName: "",
     lastName: "",
     email: "",
+    mobileNumber: "",
     password: "",
     confirmPassword: "",
   });
@@ -16,11 +21,43 @@ const Register = () => {
     passwordMatchError: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
-    window.alert("registration successful");
+    if (!isFormValid()){
+      return
+    }
+    try {
+      const formDataToSend = { ...formData };
+      delete formDataToSend.confirmPassword;
+      const response= await fetch('http://localhost:8080/register',{
+        method:"POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataToSend),
+      });
+      if (!response.ok){
+        throw new Error("Failed to register");
+      }
+      setFormData({
+        user: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      console.log(formData);
+       window.alert("registration successful");
+      
+    } catch (error) {
+      console.error("Error registering user:", error.message);
+      // Show error message to the user
+      window.alert("Failed to register user. Please try again later.");
+    }
+    
   };
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -46,11 +83,13 @@ const Register = () => {
   };
   const isFormValid = () => {
     return (
-      formData.firstName !== "" &&
-      formData.lastName !== "" &&
-      formData.email !== "" &&
-      formData.password !== "" &&
-      formData.confirmPassword !== "" &&
+      formData.userType!=="" &&
+      formData.firstName.trim() !== "" &&
+      formData.lastName.trim() !== "" &&
+      formData.email.trim() !== "" &&
+      formData.mobileNumber !== "" &&
+      formData.password.trim() !== "" &&
+      formData.confirmPassword.trim() !== "" &&
       formErrors.passwordMatchError === ""
     );
   };
@@ -58,6 +97,18 @@ const Register = () => {
   return (
     <div className={classes.main_div}>
       <form onSubmit={handleSubmit} className={classes.form_div}>
+      <FormLabel id="user-type">Gender</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="user-type-value"
+        name="user"
+        onChange={handleChange}
+        required
+      >
+        <FormControlLabel value="User" control={<Radio />} label="User" />
+        <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
+        <FormControlLabel value="Vendor" control={<Radio />} label="Vendor"/>
+      </RadioGroup>
         <TextField
           type="text"
           required
@@ -86,7 +137,15 @@ const Register = () => {
           onChange={handleChange}
           className={classes.textField}
         />
-
+         <TextField
+          type="text"
+          required
+          id="mobileNumber"
+          name="mobileNumber"
+          label="Enter your Mobile Number"
+          onChange={handleChange}
+          className={classes.textField}
+        />
         <TextField
           type="password"
           required
@@ -96,6 +155,8 @@ const Register = () => {
           onChange={handleChange}
           className={classes.textField}
         />
+
+       
 
         <TextField
           type="password"
@@ -110,7 +171,7 @@ const Register = () => {
           <span>{formErrors.passwordMatchError}</span>
         )}
 
-        <Button variant="contained" type="submit" disabled={!isFormValid}>
+        <Button variant="contained" type="submit" disabled={!isFormValid()}>
           Submit
         </Button>
         {/* </div> */}
