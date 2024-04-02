@@ -23,8 +23,29 @@ const Login = () => {
                 console.log("Invalid Input ".name)
         }
     }
-
-    const authenticateHandler = (event) => {
+    
+    const authenticateHandler = async (event) => {
+        const encodedCredentials = btoa(credentials.email + ':' + credentials.password);
+        try {
+            const response=await fetch('http://localhost:8080/sign-in',{
+            method:"POST",
+            headers:{
+              "Content-Type": "application/json",
+              "Authorization": "Basic " + encodedCredentials,
+            },
+            body: JSON.stringify(credentials),
+           
+          });
+          if (response.ok){
+            window.alert("Logged in Successfully")
+            navigate("/home")
+        }
+          console.log(response)
+        } catch (error) {
+            
+            Window.alert("Invalid Credentials")
+        }
+        
         console.log(credentials)
     }
     const displayRegistration = () => {
