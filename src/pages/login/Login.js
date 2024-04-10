@@ -42,10 +42,8 @@ const Login = () => {
         }
           console.log(response)
         } catch (error) {
-            
-            Window.alert("Invalid Credentials")
+            window.alert("Invalid Credentials")
         }
-        
         console.log(credentials)
     }
     const displayRegistration = () => {
@@ -56,7 +54,7 @@ const Login = () => {
             <TextField type="email" name="email-input" id="email-input" label="Email" variant="outlined" value={credentials.email} onChange={handleChange} />
             <TextField type="password" name="password-input" id="password-input" label="Password" variant="outlined" value={credentials.password} onChange={handleChange} />
             <Button type="submit" variant="contained" onClick={authenticateHandler}>Login</Button>
-            <Button type="submit" variant="contained" onClick={displayRegistration}>Click here to SignUp</Button>
+            <Button type="submit" variant="contained" onClick={displayRegistration}>SignUp</Button>
         </div>
     )
 }
