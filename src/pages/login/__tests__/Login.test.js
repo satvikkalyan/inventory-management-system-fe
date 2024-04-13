@@ -50,7 +50,7 @@ describe('Login Component', () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 ok: true,
-                json: () => Promise.resolve({}),
+                json: () => Promise.resolve(jest.fn()),
             })
         );
         const { getByText } = renderWithRouter(<Login />);

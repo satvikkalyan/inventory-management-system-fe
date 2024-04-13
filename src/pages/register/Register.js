@@ -16,15 +16,18 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState('');
 
   const [formErrors, setFormErrors] = useState({
     passwordMatchError: "",
   });
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!isFormValid()){
-      return
+    if (!isFormValid()) {
+      setError('Please fill all fields correctly.');
+      return;
     }
     try {
       const formDataToSend = { ...formData };
@@ -36,8 +39,9 @@ const Register = () => {
         },
         body: JSON.stringify(formDataToSend),
       });
-      if (!response.ok){
-        throw new Error("Failed to register");
+      if (!response.ok) {
+        const errData = await response.json(); 
+        throw new Error(errData.message || "Failed to register");
       }
       setFormData({
         user: "",
@@ -47,13 +51,10 @@ const Register = () => {
         password: "",
         confirmPassword: "",
       });
-      console.log(formData);
-       window.alert("registration successful");
-      
+      setError('');      
     } catch (error) {
-      console.error("Error registering user:", error.message);
-      // Show error message to the user
-      window.alert("Failed to register user. Please try again later.");
+      console.error("Error registering user:", error);
+      setError(error.message);
     }
     
   };
@@ -97,13 +98,14 @@ const Register = () => {
   return (
     <div className={classes.main_div}>
       <form onSubmit={handleSubmit} className={classes.form_div}>
-      <FormLabel id="user-type">Gender</FormLabel>
+      <FormLabel id="user-type">User Type</FormLabel>
       <RadioGroup
         row
         aria-labelledby="user-type-value"
         name="user"
         onChange={handleChange}
         required
+        label="User Type"
       >
         <FormControlLabel value="User" control={<Radio />} label="User" />
         <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
@@ -155,9 +157,6 @@ const Register = () => {
           onChange={handleChange}
           className={classes.textField}
         />
-
-       
-
         <TextField
           type="password"
           required
@@ -174,9 +173,8 @@ const Register = () => {
         <Button variant="contained" type="submit" disabled={!isFormValid()}>
           Submit
         </Button>
-        {/* </div> */}
-
       </form>
+      {error && <p id="errorMessage" style={{ color: 'red' }}>{error}</p>}
     </div>
 
   );
