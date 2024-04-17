@@ -17,7 +17,7 @@ const truncateText = (text, maxLength) => {
 
 
 const ProductCard = ({ product, onClick }) => {
-  const truncatedDescription = truncateText(product.description, 50);
+  const truncatedDescription = truncateText(product.description, 100);
 
   return (
     <Grid item xs={12} sm={6} md={4}>
