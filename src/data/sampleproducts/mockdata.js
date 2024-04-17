@@ -5,7 +5,7 @@ const products=[
       "description": "Powerful laptop with Intel Core i7, 16GB RAM, 512GB SSD, and Silver color",
       "price": 1500,
       "stockQuantity": 30,
-      "image": "Dell.jpeg",
+      "image": "/images/Dell.jpeg",
       "categoryID": 1,
       "createdAt": "2024-04-06T12:00:00Z",
       "updatedAt": "2024-04-06T12:00:00Z"
@@ -16,7 +16,7 @@ const products=[
       "description": "Flagship smartphone with A15 Bionic chip, 256GB storage, Black color",
       "price": 1200,
       "stockQuantity": 50,
-      "image":"iphone.jpeg",
+      "image":"/images/iphone.jpeg",
       "categoryID": 2,
       "createdAt": "2024-04-06T12:00:00Z",
       "updatedAt": "2024-04-06T12:00:00Z"
@@ -27,7 +27,7 @@ const products=[
       "description": "High-performance tablet with M1 chip, 256GB storage, Space Gray color",
       "price": 1000,
       "stockQuantity": 40,
-      "image":"ipad.jpeg",
+      "image":"/images/ipad.jpeg",
       "categoryID": 3,
       "createdAt": "2024-04-06T12:00:00Z",
       "updatedAt": "2024-04-06T12:00:00Z"
@@ -38,7 +38,7 @@ const products=[
       "description": "Premium noise-canceling headphones with Bluetooth, Black color",
       "price": 350,
       "stockQuantity": 20,
-      "image":'HeadPhones.jpeg',
+      "image":'/images/HeadPhones.jpeg',
       "categoryID": 4,
       "createdAt": "2024-04-06T12:00:00Z",
       "updatedAt": "2024-04-06T12:00:00Z"
@@ -49,7 +49,7 @@ const products=[
       "description": "Smartwatch with ECG, Blood Oxygen, and Always-On Retina display, Silver color",
       "price": 400,
       "stockQuantity": 25,
-      "image":"AppleWatche.jpeg",
+      "image":"/images/AppleWatche.jpeg",
       "categoryID": 5,
       "createdAt": "2024-04-06T12:00:00Z",
       "updatedAt": "2024-04-06T12:00:00Z"
@@ -60,7 +60,7 @@ const products=[
     "description": "Convertible laptop with Intel Core i7, 16GB RAM, 512GB SSD, and Dark Ash Silver color",
     "price": 1300,
     "stockQuantity": 20,
-    "image": "Dell.jpeg",
+    "image": "/images/Dell.jpeg",
     "categoryID": 1,
     "createdAt": "2024-04-06T12:00:00Z",
     "updatedAt": "2024-04-06T12:00:00Z"
@@ -71,7 +71,7 @@ const products=[
     "description": "Foldable smartphone with Snapdragon 8 Gen 2, 256GB storage, Mystic Bronze color",
     "price": 1800,
     "stockQuantity": 15,
-    "image":"iphone.jpeg",
+    "image":"/images/iphone.jpeg",
     "categoryID": 2,
     "createdAt": "2024-04-06T12:00:00Z",
     "updatedAt": "2024-04-06T12:00:00Z"
@@ -82,7 +82,7 @@ const products=[
     "description": "Powerful tablet with Intel Core i5, 8GB RAM, 256GB SSD, and Platinum color",
     "price": 1100,
     "stockQuantity": 30,
-    "image": "Dell.jpeg",
+    "image": "/images/Dell.jpeg",
     "categoryID": 3,
     "createdAt": "2024-04-06T12:00:00Z",
     "updatedAt": "2024-04-06T12:00:00Z"
@@ -104,7 +104,7 @@ const products=[
     "description": "Multisport GPS smartwatch with heart rate monitor, Sapphire Carbon Gray color",
     "price": 600,
     "stockQuantity": 25,
-    "image":"AppleWatche.jpeg",
+    "image":"/images/AppleWatche.jpeg",
     "categoryID": 5,
     "createdAt": "2024-04-06T12:00:00Z",
     "updatedAt": "2024-04-06T12:00:00Z"
@@ -116,7 +116,7 @@ const products=[
       "description": "Convertible laptop with Intel Core i9, 32GB RAM, 1TB SSD, and Slate Gray color",
       "price": 1800,
       "stockQuantity": 35,
-      "image": "Dell.jpeg",
+      "image": "/images/Dell.jpeg",
       "categoryID": 1,
       "createdAt": "2024-04-06T12:00:00Z",
       "updatedAt": "2024-04-06T12:00:00Z"

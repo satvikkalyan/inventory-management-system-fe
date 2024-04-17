@@ -1,9 +1,11 @@
-import React from "react" 
+import React, { useState } from "react"
 import Products from "../Products/products"
-const HomePage=()=>{
+import classes from "./HomePage.module.css";
+const HomePage = () => {
     return (
-        
-        <Products></Products>
+        <div className={classes.products_div}>
+            <Products />
+        </div>
     )
 }
-export default HomePage
+export default HomePage;
