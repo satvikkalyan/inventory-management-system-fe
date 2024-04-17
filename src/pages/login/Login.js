@@ -1,12 +1,15 @@
 import { Button, TextField } from "@mui/material"
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { userActions } from "../../components/store/User"
 import classes from './Login.module.css'
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" })
     const navigate = useNavigate();
-    const handleChange = (event) => {
+    const dispatch=useDispatch();
+    function handleChange(event) {
         const { name, value } = event.target;
         switch (name) {
             case 'email-input':
@@ -37,8 +40,14 @@ const Login = () => {
            
           });
           if (response.ok){
+            const data= await response.json();
+            const token=data.access_token;
+            console.log(token);
             window.alert("Logged in Successfully")
-            navigate("/home")
+            dispatch(userActions.addUserToken({
+                userToken: token
+            }))
+            navigate("/profile")
         }
           console.log(response)
         } catch (error) {
