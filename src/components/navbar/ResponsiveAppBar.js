@@ -179,7 +179,7 @@ function ResponsiveAppBar() {
             >
               {cartItems.map((item, index) => (
                 <MenuItem key={index}>
-                  <Typography textAlign="center">{item.productName} - Qty: {item.count}</Typography>
+                  <Typography textAlign="center">{item.name} - Qty: {item.quantity}</Typography>
                 </MenuItem>
               ))}
               {cartItems.length === 0 && (
