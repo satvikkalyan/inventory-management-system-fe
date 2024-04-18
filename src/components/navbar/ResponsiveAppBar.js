@@ -162,7 +162,7 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '45px', width: 'auto' }}
               id="menu-cart"
               anchorEl={anchorElCart}
               anchorOrigin={{
@@ -182,10 +182,31 @@ function ResponsiveAppBar() {
                   <Typography textAlign="center">{item.name} - Qty: {item.quantity}</Typography>
                 </MenuItem>
               ))}
-              {cartItems.length === 0 && (
+              {cartItems.length === 0 ? (
                 <MenuItem onClick={handleCloseCartMenu}>
                   <Typography textAlign="center">Your cart is empty</Typography>
                 </MenuItem>
+              ) : (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+                    p: 1
+                  }}
+                >
+                  <Button
+                    onClick={() => { }}
+                    variant="contained"
+                    sx={{
+                      width: '80%',
+                      fontSize: '0.7rem'
+                    }}
+                  >
+                    Checkout
+                  </Button>
+                </Box>
+
               )}
             </Menu>
           </Box>
