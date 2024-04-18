@@ -13,13 +13,23 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
+import { useSelector } from 'react-redux';
+
 
 const pages = ['Home', 'Pricing', 'Blog'];
 function ResponsiveAppBar() {
   const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+  const [anchorElCart, setAnchorElCart] = useState(null);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true)
+
+
+  const cartItems = useSelector((state) => state.cart.items);
+
+
   const settings = useMemo(() => {
     if (isUserLoggedIn) {
       return ['Profile', 'Logout'];
@@ -37,37 +47,19 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const handleOpenCartMenu = (event) => {
+    setAnchorElCart(event.currentTarget);
+  };
+
+  const handleCloseCartMenu = () => {
+    setAnchorElCart(null);
+  };
+
   const handleMenuItemClick = (page) => {
-    handleCloseUserMenu()
-    switch (page) {
-      case 'Home':
-        navigate('/')
-        break
-      default:
-        navigate('/')
+    handleCloseUserMenu();
+    navigate('/' + (page.toLowerCase() === 'home' ? '' : page.toLowerCase()));
+  };
 
-    }
-  }
-  const handleSettingsClicked = (setting) =>{
-    handleCloseUserMenu()
-    switch (setting) {
-      case 'Profile':
-        navigate('/')
-        break
-      case 'Logout':
-        navigate('/')
-        break
-      case 'Login':
-        navigate('/login')
-        break
-      case 'Register':
-        navigate('/register')
-        break
-      default:
-        navigate('/')
-
-    }
-  }
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -161,6 +153,42 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Cart">
+              <IconButton onClick={handleOpenCartMenu} sx={{ mr: 2 }}>
+                <Badge badgeContent={cartItems.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-cart"
+              anchorEl={anchorElCart}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElCart)}
+              onClose={handleCloseCartMenu}
+            >
+              {cartItems.map((item, index) => (
+                <MenuItem key={index}>
+                  <Typography textAlign="center">{item.productName} - Qty: {item.count}</Typography>
+                </MenuItem>
+              ))}
+              {cartItems.length === 0 && (
+                <MenuItem onClick={handleCloseCartMenu}>
+                  <Typography textAlign="center">Your cart is empty</Typography>
+                </MenuItem>
+              )}
+            </Menu>
+          </Box>
           {
             isUserLoggedIn ?
               <Box sx={{ flexGrow: 0 }}>
@@ -186,12 +214,13 @@ function ResponsiveAppBar() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={()=>handleSettingsClicked(setting)}>
+                    <MenuItem key={setting} onClick={() => handleMenuItemClick(setting)}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
-              </Box> :
+              </Box>
+              :
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -215,7 +244,7 @@ function ResponsiveAppBar() {
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={()=>handleSettingsClicked(setting)}>
+                    <MenuItem key={setting} onClick={() => handleMenuItemClick(setting)}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
