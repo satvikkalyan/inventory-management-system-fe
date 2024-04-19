@@ -1,62 +1,62 @@
-import React,{useEffect, useState} from 'react';
-import {Avatar ,Button,TextField,IconButton} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, TextField, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import classes from './Profile.module.css'
 import { useSelector } from 'react-redux';
-const Profile =()=>{
-    const [user,setUser]=useState({
+const Profile = () => {
+    const [user, setUser] = useState({
         firstName: '',
         lastName: '',
         email: '',
         bio: 'This is a short bio...',
-        mobileNumber:'',
+        mobileNumber: '',
 
     })
-    const userToken=useSelector(state=>state.user.userToken);
+    const userToken = useSelector(state => state.user.userToken);
     const [editing, setEditing] = useState(false);
     const [profilePic, setProfilePic] = useState('');
     const handleEditToggle = () => {
         setEditing(!editing);
     };
-    useEffect(()=>{
+    useEffect(() => {
         fetchUserDetails()
-    },[setUser])
-    const fetchUserDetails = async() =>{
-        console.log(userToken.userToken,"user Token")
-        try{
-            const response=await fetch('http://localhost:8080/api/getUserDetails',{
+    }, [setUser])
+    const fetchUserDetails = async () => {
+        console.log(userToken.userToken, "user Token")
+        try {
+            const response = await fetch('http://localhost:8080/api/getUserDetails', {
                 method: 'GET',
-                headers:{
+                headers: {
                     Authorization: `Bearer ${userToken.userToken}`,
                 }
             })
-            if (response.ok){
-                const userData=await response.json();
+            if (response.ok) {
+                const userData = await response.json();
                 console.log(userData);
                 setUser({
                     firstName: userData.firstName || "John",
                     lastName: userData.lastName || "Doe",
-                    email: userData.emailId ||"samples@example.com",
-                    bio: userData.bio || 'This is a short bio...', 
+                    email: userData.emailId || "samples@example.com",
+                    bio: userData.bio || 'This is a short bio...',
                     mobileNumber: userData.mobileNumber || '817784402',
                 })
                 setProfilePic(userData.imageUrl)
             }
-            else{
-                console.error('Failed to fetch user Details:',response.status);
+            else {
+                console.error('Failed to fetch user Details:', response.status);
             }
         }
-        catch(error){
+        catch (error) {
             setUser({
-                firstName:  "John",
+                firstName: "John",
                 lastName: "Doe",
                 email: "samples@example.com",
-                bio: 'This is a short bio...', 
-                mobileNumber:'817784402',
+                bio: 'This is a short bio...',
+                mobileNumber: '817784402',
             })
-            console.error('Error fetching details',error)
+            console.error('Error fetching details', error)
         }
     }
 
@@ -65,7 +65,7 @@ const Profile =()=>{
         setUser({ ...user, [name]: value });
     };
 
-    const handleSave = async() => {
+    const handleSave = async () => {
         try {
             const formData = new FormData();
             formData.append('firstName', user.firstName);
@@ -73,11 +73,11 @@ const Profile =()=>{
             formData.append('email', user.email);
             formData.append('bio', user.bio);
             formData.append('mobileNumber', user.mobileNumber);
-            
+
             if (profilePic instanceof File) {
                 formData.append('profilePic', profilePic);
             }
-    
+
             const response = await fetch('http://localhost:8080/api/updateUserDetails', {
                 method: 'PUT',
                 headers: {
@@ -85,28 +85,28 @@ const Profile =()=>{
                 },
                 body: formData,
             });
-    
+
             if (response.ok) {
-                const userData=await response.json();
+                const userData = await response.json();
                 console.log(userData);
                 setUser({
                     firstName: userData.firstName || "John",
                     lastName: userData.lastName || "Doe",
-                    email: userData.emailId ||"samples@example.com",
-                    bio: userData.bio || 'This is a short bio...', 
+                    email: userData.emailId || "samples@example.com",
+                    bio: userData.bio || 'This is a short bio...',
                     mobileNumber: userData.mobileNumber || '817784402',
                 })
                 setProfilePic(userData.imageUrl)
 
                 console.log('User details updated successfully');
-                
+
             } else {
                 console.error('Failed to update user details:', response.status);
             }
         } catch (error) {
             console.error('Error updating user details:', error);
         }
-    
+
         console.log('User details saved:', user);
         setEditing(false);
     };
@@ -119,16 +119,16 @@ const Profile =()=>{
     return (
         <div className={classes.main_div}>
             <h2>User Profile</h2>
-            {editing ?(
+            {editing ? (
                 <div className={classes.profile_container}>
-                <input
+                    <input
                         accept="image/*"
                         style={{ display: 'none' }}
                         id="profile-pic-upload"
                         type="file"
                         onChange={handleFileChange}
                     />
-                     <label htmlFor="profile-pic-upload">
+                    <label htmlFor="profile-pic-upload">
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <Avatar
                                 src={profilePic}
@@ -193,29 +193,30 @@ const Profile =()=>{
                         Save
                     </Button>
                 </div>
-            ):(
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <Avatar
-                src={profilePic || 'path-to-default-avatar.png'}
-                sx={{ width: 150, height: 150 }}
-                alt={user.name}
-            />
-            <p>{user.firstName}</p>
-            <p>{user.lastName}</p>
-            <p>{user.email}</p>
-            <p>{user.mobileNumber}</p>
-            <p>{user.bio}</p>
-            <Button
-                startIcon={<EditIcon />}
-                variant="outlined"
-                color="primary"
-                onClick={handleEditToggle}
-            >
-                Edit
-            </Button>
+            ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+                    <Avatar
+                        src={profilePic || 'path-to-default-avatar.png'}
+                        sx={{ width: 150, height: 150 }}
+                        alt={user.name}
+                    />
+                    <p>{user.firstName}</p>
+                    <p>{user.lastName}</p>
+                    <p>{user.email}</p>
+                    <p>{user.mobileNumber}</p>
+                    <p>{user.bio}</p>
+                    <Button
+                        startIcon={<EditIcon />}
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleEditToggle}
+                    >
+                        Edit
+                    </Button>
+                </div>
+            )
+            }
         </div>
     )
-            }
-</div>
-)}
+}
 export default Profile;

@@ -180,7 +180,7 @@ function ResponsiveAppBar() {
             >
               {cartItems.map((item, index) => (
                 <MenuItem key={index}>
-                  <Typography textAlign="center">{item.name} - Qty: {item.quantity}</Typography>
+                  <Typography textAlign="center">{item.productName} - Qty: {item.quantity}</Typography>
                 </MenuItem>
               ))}
               {cartItems.length === 0 ? (
@@ -197,7 +197,7 @@ function ResponsiveAppBar() {
                   }}
                 >
                   <Button
-                    onClick={()=>handleMenuItemClick('checkout')}
+                    onClick={() => handleMenuItemClick('checkout')}
                     variant="contained"
                     sx={{
                       width: '80%',

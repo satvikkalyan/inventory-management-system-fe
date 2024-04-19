@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, IconButton, Button, TextField, InputAdornment } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from './../../redux/reducers/Cart';
 
 const ProductDetail = ({ product, onResetSelection }) => {
@@ -15,20 +15,20 @@ const ProductDetail = ({ product, onResetSelection }) => {
 
   const handleAddToCart = () => {
     if (currentProductCount === 0) {
-      dispatch(cartActions.addToCart({...product, quantity: 1}));
+      dispatch(cartActions.addToCart({ ...product, quantity: 1 }));
     }
   };
 
   const handleIncrement = () => {
-    dispatch(cartActions.updateQuantity({product_id: product.product_id, quantity: currentProductCount + 1}));
+    dispatch(cartActions.updateQuantity({ product_id: product.product_id, quantity: currentProductCount + 1 }));
   };
 
 
   const handleDecrement = () => {
     if (currentProductCount > 1) {
-      dispatch(cartActions.updateQuantity({product_id: product.product_id, quantity: currentProductCount - 1}));
+      dispatch(cartActions.updateQuantity({ product_id: product.product_id, quantity: currentProductCount - 1 }));
     } else {
-      dispatch(cartActions.removeFromCart({product_id: product.product_id}));
+      dispatch(cartActions.removeFromCart({ product_id: product.product_id }));
     }
   };
 
@@ -63,10 +63,10 @@ const ProductDetail = ({ product, onResetSelection }) => {
         <Grid item xs={12} sm={6}>
           <CardContent sx={{ flexGrow: 1 }}>
             <Typography gutterBottom variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-              {product.name}
+              {product.productName}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              {product.description}
+              {product.productDescription}
             </Typography>
             <Typography variant="h6" sx={{ mt: 2, fontWeight: 'medium' }}>
               Price: ${product.price}
