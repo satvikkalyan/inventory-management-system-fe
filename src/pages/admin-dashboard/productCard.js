@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActionArea, CardContent, CardMedia, Typography, Grid } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardMedia, Typography, Grid, Button } from '@mui/material';
 
 
 const cardContentStyle = {
@@ -22,7 +22,7 @@ const ProductCard = ({ product, onClick }) => {
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card>
-        <CardActionArea onClick={() => onClick(product)}>
+        <CardActionArea >
           <CardMedia
             component="img"
             height="140"
@@ -30,12 +30,16 @@ const ProductCard = ({ product, onClick }) => {
             alt={product.productName}
             style={{ objectFit: 'contain' }}
           />
+          <Button onClick={() => onClick(product)}>Edit</Button>
           <CardContent style={cardContentStyle}>
             <Typography gutterBottom variant="h5" component="div">
               {product.productName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {truncatedDescription}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="div">
+              {product.price}
             </Typography>
           </CardContent>
         </CardActionArea>

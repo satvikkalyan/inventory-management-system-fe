@@ -45,7 +45,7 @@ const ProductCheckoutCard= ({ product }) => {
           <Grid item xs={12} sm={6}>
             <CardMedia
               component="img"
-              image={product.image}
+              image={product.images[0].imageURL}
               alt={product.name}
               style={{ objectFit: 'contain' }}
               sx={{ width: '80%', height: 200, p: 2 }}

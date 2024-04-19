@@ -54,7 +54,7 @@ const ProductDetail = ({ product, onResetSelection }) => {
         <Grid item xs={12} sm={6}>
           <CardMedia
             component="img"
-            image={product.image}
+            image={product.images[0].imageURL}
             alt={product.name}
             style={{ objectFit: 'contain' }}
             sx={{ width: '100%', height: 300 }}
