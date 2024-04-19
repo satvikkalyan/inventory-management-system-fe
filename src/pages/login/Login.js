@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material"
 import React, { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { userActions } from "../../components/store/User"
+import { userActions } from "./../../redux/reducers/User"
 import classes from './Login.module.css'
 
 const Login = () => {

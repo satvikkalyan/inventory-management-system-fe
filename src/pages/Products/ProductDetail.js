@@ -1,45 +1,34 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, IconButton, Button, TextField, InputAdornment } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useSelector,useDispatch } from 'react-redux';
+import { cartActions } from './../../redux/reducers/Cart';
 
 const ProductDetail = ({ product, onResetSelection }) => {
-  const [cart, setCart] = useState([]) // Change this to get from Redux after redux integration
-  const currentProductCount = useMemo(() => {
-    const item = cart.find(item => item.productID === product.productID);
-    return item ? item.count : 0;
-  }, [cart, product.productID]);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.cart.items);
+  const item = cartItems.find(item => item.productID === product.productID);
+  const currentProductCount = item ? item.quantity : 0;
 
-  const updateProductCount = (newCount) => {
-    setCart(currentCart => {
-      const cartIndex = currentCart.findIndex(item => item.productID === product.productID);
-      if (cartIndex !== -1) {
-        const updatedCart = [...currentCart];
-        updatedCart[cartIndex] = { ...updatedCart[cartIndex], count: newCount };
-        return updatedCart;
-      } else {
-        return [...currentCart, { productID: product.productID, count: newCount }];
-      }
-    });
-  };
-
-  const handleIncrement = () => {
-    updateProductCount(currentProductCount + 1);
-  };
-
-  const handleDecrement = () => {
-    if (currentProductCount > 0) {
-      updateProductCount(currentProductCount - 1);
+  const handleAddToCart = () => {
+    if (currentProductCount === 0) {
+      dispatch(cartActions.addToCart({...product, quantity: 1}));
     }
   };
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    const intValue = parseInt(value, 10);
-    if (!isNaN(intValue) && intValue >= 0) {
-      updateProductCount(intValue);
+  const handleIncrement = () => {
+    dispatch(cartActions.updateQuantity({productID: product.productID, quantity: currentProductCount + 1}));
+  };
+
+
+  const handleDecrement = () => {
+    if (currentProductCount > 1) {
+      dispatch(cartActions.updateQuantity({productID: product.productID, quantity: currentProductCount - 1}));
+    } else {
+      dispatch(cartActions.removeFromCart({productID: product.productID}));
     }
   };
 
@@ -85,12 +74,12 @@ const ProductDetail = ({ product, onResetSelection }) => {
             <Typography variant="subtitle1" sx={{ mt: 1 }}>
               In stock: {product.stockQuantity}
             </Typography>
-            {currentProductCount == 0 ?
+            {currentProductCount === 0 ?
               (
                 <Button
                   variant="outlined"
                   startIcon={<ShoppingCartIcon />}
-                  onClick={() => updateProductCount(1)}
+                  onClick={handleAddToCart}
                   sx={{
                     mt: 2,
                     alignSelf: 'start'
@@ -110,7 +99,6 @@ const ProductDetail = ({ product, onResetSelection }) => {
                     size="small"
                     value={currentProductCount}
                     disabled
-                    onChange={handleChange}
                     type="number"
                     InputProps={{
                       startAdornment: <InputAdornment position="start">Qty:</InputAdornment>,
