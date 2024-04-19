@@ -196,7 +196,7 @@ function ResponsiveAppBar() {
                   }}
                 >
                   <Button
-                    onClick={() => { }}
+                    onClick={()=>handleMenuItemClick('checkout')}
                     variant="contained"
                     sx={{
                       width: '80%',
