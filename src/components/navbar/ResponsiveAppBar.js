@@ -57,6 +57,7 @@ function ResponsiveAppBar() {
 
   const handleMenuItemClick = (page) => {
     handleCloseUserMenu();
+    handleCloseCartMenu();
     navigate('/' + (page.toLowerCase() === 'home' ? '' : page.toLowerCase()));
   };
 
