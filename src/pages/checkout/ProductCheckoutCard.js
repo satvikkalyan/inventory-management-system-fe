@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid, IconButton, Button, TextField, InputAdornment } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -49,7 +48,8 @@ const ProductCheckoutCard= ({ product }) => {
               image={product.image}
               alt={product.name}
               style={{ objectFit: 'contain' }}
-              sx={{ width: '80%', height: 200 }}
+              sx={{ width: '80%', height: 200, p: 2 }}
+
             />
           </Grid>
           <Grid item xs={12} sm={6}>

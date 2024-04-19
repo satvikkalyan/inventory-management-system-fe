@@ -57,6 +57,7 @@ function ResponsiveAppBar() {
 
   const handleMenuItemClick = (page) => {
     handleCloseUserMenu();
+    handleCloseCartMenu();
     navigate('/' + (page.toLowerCase() === 'home' ? '' : page.toLowerCase()));
   };
 
@@ -73,7 +74,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#"
+            onClick={()=>navigate("/")}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -128,7 +129,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#"
+            onClick={()=>navigate("/")}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -179,7 +180,7 @@ function ResponsiveAppBar() {
             >
               {cartItems.map((item, index) => (
                 <MenuItem key={index}>
-                  <Typography textAlign="center">{item.name} - Qty: {item.quantity}</Typography>
+                  <Typography textAlign="center">{item.productName} - Qty: {item.quantity}</Typography>
                 </MenuItem>
               ))}
               {cartItems.length === 0 ? (
@@ -196,7 +197,7 @@ function ResponsiveAppBar() {
                   }}
                 >
                   <Button
-                    onClick={()=>handleMenuItemClick('checkout')}
+                    onClick={() => handleMenuItemClick('checkout')}
                     variant="contained"
                     sx={{
                       width: '80%',
