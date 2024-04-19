@@ -17,7 +17,7 @@ const truncateText = (text, maxLength) => {
 
 
 const ProductCard = ({ product, onClick }) => {
-  const truncatedDescription = truncateText(product.description, 100);
+  const truncatedDescription = truncateText(product.productDescription, 100);
 
   return (
     <Grid item xs={12} sm={6} md={4}>
@@ -27,12 +27,12 @@ const ProductCard = ({ product, onClick }) => {
             component="img"
             height="140"
             image={product.image}
-            alt={product.name}
+            alt={product.productName}
             style={{ objectFit: 'contain' }}
           />
           <CardContent style={cardContentStyle}>
             <Typography gutterBottom variant="h5" component="div">
-              {product.name}
+              {product.productName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {truncatedDescription}
