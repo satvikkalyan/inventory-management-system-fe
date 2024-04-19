@@ -7,6 +7,7 @@ import HomePage from "./pages/home-page/HomePage"
 import PasswordRecovery from './pages/forgot-password/PasswordRecovery';
 import ResponsiveAppBar from "./components/navbar/ResponsiveAppBar";
 import Profile from "./pages/Profile/Profile";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
 function App() {
   return (
     <Router>
@@ -17,6 +18,8 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/passwordreset" element={<PasswordRecovery />}></Route>
+        <Route path="/checkout" element={<CheckoutPage />}></Route>
+
       </Routes>
     </Router>
   );
