@@ -10,7 +10,7 @@ import { cartActions } from './../../redux/reducers/Cart';
 const ProductDetail = ({ product, onResetSelection }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.items);
-  const item = cartItems.find(item => item.productID === product.productID);
+  const item = cartItems.find(item => item.product_id === product.product_id);
   const currentProductCount = item ? item.quantity : 0;
 
   const handleAddToCart = () => {
@@ -20,15 +20,15 @@ const ProductDetail = ({ product, onResetSelection }) => {
   };
 
   const handleIncrement = () => {
-    dispatch(cartActions.updateQuantity({productID: product.productID, quantity: currentProductCount + 1}));
+    dispatch(cartActions.updateQuantity({product_id: product.product_id, quantity: currentProductCount + 1}));
   };
 
 
   const handleDecrement = () => {
     if (currentProductCount > 1) {
-      dispatch(cartActions.updateQuantity({productID: product.productID, quantity: currentProductCount - 1}));
+      dispatch(cartActions.updateQuantity({product_id: product.product_id, quantity: currentProductCount - 1}));
     } else {
-      dispatch(cartActions.removeFromCart({productID: product.productID}));
+      dispatch(cartActions.removeFromCart({product_id: product.product_id}));
     }
   };
 
