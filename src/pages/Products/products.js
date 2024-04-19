@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Container } from '@mui/material';
 import ProductCard from './ProductCard';
 import ProductDetail from './ProductDetail';
 import products from '../../data/sampleproducts/mockdata.js'
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [allProducts,setAllProducts] = useState(products);
+  useEffect(()=>{
+    fetchProducts()
+  
+  },[setAllProducts])
   const handleCardClick = (product) => {
     setSelectedProduct(product);
   };
+  const fetchProducts = async() =>{
+    try{
+      const response = await fetch('http://localhost:8090/api/products/getAll',{
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+        
+      })
+      if (response.ok){
+        const productData = await response.json();
+        console.log(productData)
+        setAllProducts(productData)
+        
+      }
+      else{
+        setAllProducts(products)
+      }
+    }
+    catch(error){
+      console.log('Failed to fetch product details',error)
+    }
+  }
+  
 
   const handleResetSelection = () => {
     setSelectedProduct(null)
@@ -18,8 +44,8 @@ const Products = () => {
     <Container>
       <Grid container spacing={4}>
         {!selectedProduct ? (
-          products.map((product) => (
-            <ProductCard key={product.productID} product={product} onClick={handleCardClick} />
+          allProducts.map((product) => (
+            <ProductCard key={product.product_id} product={product} onClick={handleCardClick} />
           ))
         ) : (
           <ProductDetail product={selectedProduct} onResetSelection={handleResetSelection} />

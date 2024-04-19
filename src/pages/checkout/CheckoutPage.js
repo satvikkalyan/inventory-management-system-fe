@@ -29,7 +29,7 @@ const CheckoutPage = () => {
     <Box display="flex" p={2} justifyContent="space-between" alignItems="flex-start">
       <Box flexGrow={1} pr={2}>
         {cartItems.map(item => (
-          <ProductCheckoutCard key={item.productID} product={item} />
+          <ProductCheckoutCard key={item.product_id} product={item} />
         ))}
       </Box>
       <Card sx={{ width: 400 }}>
