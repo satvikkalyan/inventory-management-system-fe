@@ -48,7 +48,8 @@ const ProductCheckoutCard= ({ product }) => {
               image={product.image}
               alt={product.name}
               style={{ objectFit: 'contain' }}
-              sx={{ width: '80%', height: 200 }}
+              sx={{ width: '80%', height: 200, p: 2 }}
+
             />
           </Grid>
           <Grid item xs={12} sm={6}>
